@@ -1,109 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome | Your Cool Brand</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@motionone/dom"></script>
-  <style>
-    body {
-      background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
-      overflow-x: hidden;
-      transition: background 0.5s ease;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Minimalist Animated Landing</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+  /* Reset and base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: #121212;
+    color: #eee;
+    overflow-x: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  /* Animation for fade in */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
-    .stars {
-      width: 2px;
-      height: 2px;
-      background: white;
-      position: absolute;
-      animation: twinkle 2s infinite ease-in-out;
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 1; }
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 3rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5em;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto 2em auto;
+    color: #ccc;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+  }
+
+  /* Accent colored button */
+  a.cta-button {
+    display: inline-block;
+    padding: 0.8em 2em;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 2px solid #3DDC97;
+    border-radius: 30px;
+    color: #3DDC97;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.9s;
+    opacity: 0;
+  }
+
+  a.cta-button:hover {
+    background-color: #3DDC97;
+    color: #121212;
+  }
+
+  /* Social bar fixed bottom */
+  .social-bar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 25px;
+    z-index: 10;
+  }
+
+  .social-bar a {
+    color: #bbb;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+  }
+
+  .social-bar a:hover {
+    color: #3DDC97;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2.2rem;
     }
-    .glow-text {
-      text-shadow: 0 0 5px #fff, 0 0 15px #0ff, 0 0 25px #0ff;
+
+    p {
+      font-size: 1rem;
+      padding: 0 10px;
     }
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-    }
-    .dark-mode {
-      background: #0e0e0e;
-    }
-  </style>
+  }
+</style>
+<!-- Using FontAwesome for social icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
-<body class="text-white relative transition-all duration-500" id="body">
+<body>
 
-  <!-- Star Field -->
-  <script>
-    for (let i = 0; i < 150; i++) {
-      const star = document.createElement('div');
-      star.className = 'stars';
-      star.style.top = Math.random() * 100 + 'vh';
-      star.style.left = Math.random() * 100 + 'vw';
-      star.style.animationDelay = Math.random() * 2 + 's';
-      document.body.appendChild(star);
-    }
-  </script>
+  <h1>Welcome to Your Space</h1>
+  <p>Minimalist, elegant, and animated landing page — designed to impress and keep it simple.</p>
+  <a href="#!" class="cta-button">Get Started</a>
 
-  <!-- Toggle -->
-  <div class="absolute top-5 right-5 z-20">
-    <button onclick="toggleDarkMode()" class="bg-white text-black px-4 py-1 rounded-full shadow hover:scale-105 transition">
-      Toggle Mode
-    </button>
-  </div>
-
-  <!-- Content -->
-  <div class="text-center z-10 relative pt-20 px-4">
-    <!-- Animated Logo -->
-    <div id="logo" class="mx-auto mb-6 w-24 h-24 bg-cyan-400 rounded-full flex items-center justify-center text-black text-3xl font-bold shadow-xl">
-      ⚡
-    </div>
-
-    <h1 class="text-5xl md:text-7xl font-bold glow-text animate-float" id="headline">
-      Welcome to Your Universe
-    </h1>
-    <p class="mt-6 text-xl text-gray-300 max-w-xl mx-auto" id="subtext">
-      Explore the future of creativity, tech, and imagination.
-    </p>
-    <a href="#contact" class="mt-10 inline-block px-8 py-3 rounded-full text-lg font-semibold bg-cyan-400 text-black hover:bg-cyan-300 transition" id="cta">
-      Start the Journey
+  <div class="social-bar" aria-label="Social media links">
+    <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener" aria-label="Twitter">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="https://github.com/yourhandle" target="_blank" rel="noopener" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <i class="fab fa-linkedin-in"></i>
     </a>
   </div>
 
-  <!-- Contact Form -->
-  <section id="contact" class="mt-32 px-6 max-w-xl mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-6">🌐 Let's Connect</h2>
-    <form class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-xl space-y-4 text-black dark:text-white">
-      <input type="text" placeholder="Your Name" class="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 focus:outline-none" />
-      <input type="email" placeholder="Email Address" class="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 focus:outline-none" />
-      <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 focus:outline-none"></textarea>
-      <button type="submit" class="bg-cyan-400 text-black font-semibold px-6 py-2 rounded hover:bg-cyan-300 transition">Send Message</button>
-    </form>
-  </section>
-
-  <!-- Animations -->
-  <script>
-    motion.animate("#logo", { scale: [0, 1], rotate: [180, 0] }, { duration: 1, easing: "ease-out" });
-    motion.animate("#headline", { opacity: [0, 1], y: [-50, 0] }, { duration: 1.2 });
-    motion.animate("#subtext", { opacity: [0, 1], y: [-30, 0] }, { delay: 0.5, duration: 1 });
-    motion.animate("#cta", { opacity: [0, 1], scale: [0.9, 1] }, { delay: 1, duration: 0.8 });
-
-    // Dark mode
-    const body = document.getElementById('body');
-    function toggleDarkMode() {
-      body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', body.classList.contains('dark-mode') ? 'true' : 'false');
-    }
-    if (localStorage.getItem('darkMode') === 'true') {
-      body.classList.add('dark-mode');
-    }
-  </script>
 </body>
 </html>
