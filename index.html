@@ -2,193 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cool Animated Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome | Your Site</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    body {
+      background: linear-gradient(-45deg, #1e3a8a, #4f46e5, #0ea5e9, #1e40af);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
     }
-
-    body, html {
-      height: 100%;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      overflow-x: hidden;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
-
-    .container {
-      text-align: center;
-      max-width: 600px;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-      animation: fadeInScale 1s ease forwards;
+    .fade-in-up {
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(20px);
     }
-
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
+    @keyframes fadeInUp {
       to {
         opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      0% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #6a11cb, 0 0 30px #6a11cb;
-      }
-      100% {
-        text-shadow: 0 0 20px #fff, 0 0 40px #2575fc, 0 0 60px #2575fc;
-      }
-    }
-
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      color: #d0d6f9cc;
-      line-height: 1.5;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      color: #6a11cb;
-      background: white;
-      border-radius: 50px;
-      text-transform: uppercase;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn:hover {
-      color: white;
-      background: #6a11cb;
-      box-shadow: 0 0 15px #6a11cb, 0 0 30px #2575fc;
-    }
-
-    /* Animated underline effect */
-    .btn::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 3px;
-      background: #2575fc;
-      transition: 0.3s;
-      transform: translateX(-50%);
-      border-radius: 10px;
-    }
-
-    .btn:hover::after {
-      width: 80%;
-    }
-
-    /* Background floating circles */
-    .bg-circles {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .bg-circles div {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      animation: float 10s linear infinite;
-      bottom: -150px;
-    }
-
-    .bg-circles div:nth-child(1) {
-      width: 80px;
-      height: 80px;
-      left: 10%;
-      animation-duration: 12s;
-      animation-delay: 0s;
-    }
-
-    .bg-circles div:nth-child(2) {
-      width: 100px;
-      height: 100px;
-      left: 25%;
-      animation-duration: 15s;
-      animation-delay: 3s;
-    }
-
-    .bg-circles div:nth-child(3) {
-      width: 60px;
-      height: 60px;
-      left: 40%;
-      animation-duration: 10s;
-      animation-delay: 6s;
-    }
-
-    .bg-circles div:nth-child(4) {
-      width: 120px;
-      height: 120px;
-      left: 60%;
-      animation-duration: 18s;
-      animation-delay: 4s;
-    }
-
-    .bg-circles div:nth-child(5) {
-      width: 90px;
-      height: 90px;
-      left: 75%;
-      animation-duration: 14s;
-      animation-delay: 1s;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(100vh) translateX(0) scale(1);
-        opacity: 0;
-      }
-      50% {
-        opacity: 0.3;
-      }
-      100% {
-        transform: translateY(-150px) translateX(30px) scale(1.2);
-        opacity: 0;
+        transform: translateY(0);
       }
     }
   </style>
 </head>
-<body>
-  <div class="bg-circles">
-    <div></div><div></div><div></div><div></div><div></div>
+<body class="flex items-center justify-center h-screen text-white font-sans">
+
+  <div class="text-center space-y-6 fade-in-up">
+    <h1 class="text-5xl md:text-6xl font-extrabold">Welcome to Your Website</h1>
+    <p class="text-xl md:text-2xl">Crafted with creativity and purpose.</p>
+    <a href="#get-started" class="inline-block px-8 py-3 bg-white text-indigo-700 font-bold rounded-full hover:bg-indigo-100 transition">Get Started</a>
   </div>
 
-  <div class="container">
-    <h1>Welcome to Your Site</h1>
-    <p>Experience the future of the web with stunning animations and smooth user interactions.</p>
-    <button class="btn" onclick="alert('Thanks for clicking!')">Get Started</button>
-  </div>
 </body>
 </html>
