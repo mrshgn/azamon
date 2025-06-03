@@ -3,173 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Minimalist Modern Landing</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap');
-
-    /* Reset */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      font-family: 'Inter', sans-serif;
-      background: #fff;
-      color: #111;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Hero Section */
-    .hero {
-      position: relative;
-      flex: 1 0 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 0 10vw;
-      height: 100vh;
-      max-width: 1200px;
-      margin: 0 auto;
-      overflow: hidden;
-    }
-    .hero h1 {
-      font-weight: 600;
-      font-size: clamp(3rem, 8vw, 6rem);
-      line-height: 1.1;
-      max-width: 650px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 1s ease, transform 1s ease;
-      color: #000;
-    }
-    .hero h1.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .hero p {
-      font-weight: 300;
-      font-size: clamp(1.1rem, 2vw, 1.5rem);
-      color: #555;
-      margin-top: 1.3em;
-      max-width: 500px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;
-    }
-    .hero p.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Call to action button */
-    .hero a.cta {
-      margin-top: 3em;
-      padding: 0.85em 2.5em;
-      background: transparent;
-      border: 2px solid #000;
-      font-weight: 600;
-      font-size: 1.2rem;
-      color: #000;
-      border-radius: 40px;
-      text-decoration: none;
-      cursor: pointer;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 1s ease 0.8s, transform 1s ease 0.8s;
-      display: inline-block;
-      user-select: none;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .hero a.cta.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .hero a.cta:hover {
-      background: #000;
-      color: #fff;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    /* Social bar fixed bottom */
-    .social-bar {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 30px;
-      z-index: 100;
-      user-select: none;
-    }
-
-    .social-bar a {
-      color: #333;
-      font-size: 1.8rem;
-      transition: color 0.3s ease, transform 0.3s ease;
-      text-decoration: none;
-    }
-
-    .social-bar a:hover {
-      color: #000;
-      transform: scale(1.3);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 0 5vw;
-      }
-      .hero h1 {
-        font-size: clamp(2.5rem, 8vw, 4.5rem);
-        max-width: 100%;
-      }
-      .hero p {
-        max-width: 100%;
-      }
-    }
-  </style>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <title>Minimal Modern Landing</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body>
 
   <section class="hero">
-    <h1 id="headline">Creating Beautiful Minimal Experiences</h1>
-    <p id="subtext">A modern landing page inspired by clean design and smooth animations.</p>
-    <a href="#!" class="cta" id="cta-btn">Explore More</a>
+    <div class="container">
+      <h1 class="fade-slide" data-delay="0">Crafting Minimal, Beautiful Experiences</h1>
+      <p class="fade-slide" data-delay="200">
+        Inspired by clean design and smooth subtle animations.
+      </p>
+      <a href="#!" class="btn fade-slide" data-delay="400">Explore More</a>
+    </div>
+    <div class="accent-shape"></div>
   </section>
 
   <nav class="social-bar" aria-label="Social media links">
-    <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener" aria-label="Twitter">
-      <i class="fab fa-twitter"></i>
-    </a>
-    <a href="https://github.com/yourhandle" target="_blank" rel="noopener" aria-label="GitHub">
-      <i class="fab fa-github"></i>
-    </a>
-    <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener" aria-label="LinkedIn">
-      <i class="fab fa-linkedin-in"></i>
-    </a>
+    <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="https://github.com/yourhandle" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
   </nav>
-
-  <script>
-    // Animate elements on page load with slight delay
-    window.addEventListener('load', () => {
-      const headline = document.getElementById('headline');
-      const subtext = document.getElementById('subtext');
-      const ctaBtn = document.getElementById('cta-btn');
-
-      setTimeout(() => headline.classList.add('active'), 200);
-      setTimeout(() => subtext.classList.add('active'), 700);
-      setTimeout(() => ctaBtn.classList.add('active'), 1200);
-    });
-  </script>
 
 </body>
 </html>
