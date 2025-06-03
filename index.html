@@ -3,128 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Animated Minimalist Landing</title>
+  <title>Minimalist Modern Landing</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap');
 
-    /* Reset and base */
+    /* Reset */
     * {
       margin: 0; padding: 0; box-sizing: border-box;
     }
     html, body {
       height: 100%;
-      background: #121212;
       font-family: 'Inter', sans-serif;
-      color: #eee;
-      overflow: hidden;
+      background: #fff;
+      color: #111;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      flex: 1 0 auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      position: relative;
-    }
-
-    /* Canvas background */
-    #particles {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
+      align-items: flex-start;
+      padding: 0 10vw;
       height: 100vh;
-      z-index: 0;
-      background: #121212;
-    }
-
-    /* Container to hold text and button */
-    .content {
-      position: relative;
-      z-index: 1;
-      max-width: 700px;
-      width: 100%;
-    }
-
-    /* Typing effect */
-    h1 {
-      font-weight: 700;
-      font-size: 3rem;
-      letter-spacing: 1.8px;
-      white-space: nowrap;
-      border-right: 3px solid #3DDC97;
+      max-width: 1200px;
+      margin: 0 auto;
       overflow: hidden;
-      width: 0;
-      animation: typing 3.5s steps(30, end) forwards, blink 0.75s step-end infinite;
-      margin-bottom: 1em;
-      margin-top: 0;
-      user-select: none;
     }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-
-    /* Subtitle fade in */
-    p {
-      font-weight: 400;
-      font-size: 1.25rem;
-      color: #bbb;
+    .hero h1 {
+      font-weight: 600;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.1;
+      max-width: 650px;
       opacity: 0;
-      animation: fadeIn 1.5s ease forwards;
-      animation-delay: 3.6s;
-      margin-bottom: 2.5em;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      user-select: none;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+      color: #000;
+    }
+    .hero h1.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1 }
+    .hero p {
+      font-weight: 300;
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      color: #555;
+      margin-top: 1.3em;
+      max-width: 500px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;
+    }
+    .hero p.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* Bouncy button */
-    a.cta-button {
-      display: inline-block;
-      font-weight: 700;
+    /* Call to action button */
+    .hero a.cta {
+      margin-top: 3em;
+      padding: 0.85em 2.5em;
+      background: transparent;
+      border: 2px solid #000;
+      font-weight: 600;
       font-size: 1.2rem;
-      color: #121212;
-      background-color: #3DDC97;
-      padding: 0.85em 2.2em;
-      border-radius: 30px;
+      color: #000;
+      border-radius: 40px;
       text-decoration: none;
-      box-shadow: 0 8px 15px rgba(61, 220, 151, 0.4);
       cursor: pointer;
-      transform-origin: center;
-      animation: bounceIn 0.8s ease forwards;
-      animation-delay: 5.2s;
       opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease 0.8s, transform 1s ease 0.8s;
+      display: inline-block;
       user-select: none;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
-    a.cta-button:hover {
-      box-shadow: 0 12px 24px rgba(61, 220, 151, 0.6);
-      transform: scale(1.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .hero a.cta.active {
+      opacity: 1;
+      transform: translateY(0);
     }
-    @keyframes bounceIn {
-      0% {
-        opacity: 0;
-        transform: translateY(20px) scale(0.8);
-      }
-      60% {
-        opacity: 1;
-        transform: translateY(-10px) scale(1.1);
-      }
-      80% {
-        transform: translateY(5px) scale(0.95);
-      }
-      100% {
-        transform: translateY(0) scale(1);
-      }
+    .hero a.cta:hover {
+      background: #000;
+      color: #fff;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     /* Social bar fixed bottom */
@@ -135,29 +106,33 @@
       transform: translateX(-50%);
       display: flex;
       gap: 30px;
-      z-index: 10;
+      z-index: 100;
       user-select: none;
     }
 
     .social-bar a {
-      color: #bbb;
+      color: #333;
       font-size: 1.8rem;
-      transition: color 0.3s, transform 0.3s;
+      transition: color 0.3s ease, transform 0.3s ease;
+      text-decoration: none;
     }
 
     .social-bar a:hover {
-      color: #3DDC97;
+      color: #000;
       transform: scale(1.3);
     }
 
     /* Responsive */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2.2rem;
+    @media (max-width: 768px) {
+      .hero {
+        padding: 0 5vw;
       }
-      p {
-        font-size: 1rem;
-        padding: 0 10px;
+      .hero h1 {
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        max-width: 100%;
+      }
+      .hero p {
+        max-width: 100%;
       }
     }
   </style>
@@ -165,13 +140,11 @@
 </head>
 <body>
 
-  <canvas id="particles"></canvas>
-
-  <div class="content" role="main">
-    <h1>Welcome to Your Space</h1>
-    <p>Minimalist, elegant, and animated landing page — designed to impress and keep it simple.</p>
-    <a href="#!" class="cta-button">Get Started</a>
-  </div>
+  <section class="hero">
+    <h1 id="headline">Creating Beautiful Minimal Experiences</h1>
+    <p id="subtext">A modern landing page inspired by clean design and smooth animations.</p>
+    <a href="#!" class="cta" id="cta-btn">Explore More</a>
+  </section>
 
   <nav class="social-bar" aria-label="Social media links">
     <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener" aria-label="Twitter">
@@ -186,92 +159,17 @@
   </nav>
 
   <script>
-    // Particle background animation
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
+    // Animate elements on page load with slight delay
+    window.addEventListener('load', () => {
+      const headline = document.getElementById('headline');
+      const subtext = document.getElementById('subtext');
+      const ctaBtn = document.getElementById('cta-btn');
 
-    let width, height;
-    let particlesArray;
-
-    function init() {
-      resize();
-      particlesArray = [];
-      const numberOfParticles = Math.floor((width * height) / 8000);
-      for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-      }
-      animate();
-    }
-
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    }
-
-    window.addEventListener('resize', () => {
-      resize();
-      init();
+      setTimeout(() => headline.classList.add('active'), 200);
+      setTimeout(() => subtext.classList.add('active'), 700);
+      setTimeout(() => ctaBtn.classList.add('active'), 1200);
     });
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.size = 1 + Math.random() * 1.5;
-        this.speedX = (Math.random() - 0.5) * 0.2;
-        this.speedY = (Math.random() - 0.5) * 0.2;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < 0 || this.x > width) this.speedX *= -1;
-        if (this.y < 0 || this.y > height) this.speedY *= -1;
-      }
-
-      draw() {
-        ctx.fillStyle = 'rgba(61, 220, 151, 0.7)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function connectParticles() {
-      let opacityValue = 0.2;
-      for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a; b < particlesArray.length; b++) {
-          let dx = particlesArray[a].x - particlesArray[b].x;
-          let dy = particlesArray[a].y - particlesArray[b].y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 120) {
-            ctx.strokeStyle = `rgba(61, 220, 151, ${opacityValue})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-            ctx.stroke();
-            opacityValue += 0.0005;
-          }
-        }
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      connectParticles();
-      requestAnimationFrame(animate);
-    }
-
-    // Initialize particles on load
-    window.onload = init;
   </script>
+
 </body>
 </html>
