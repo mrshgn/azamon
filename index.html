@@ -2,40 +2,200 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Azamon</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <style>
-    body {
-      background: linear-gradient(-45deg, #1e3a8a, #4f46e5, #0ea5e9, #1e40af);
-      background-size: 400% 400%;
-      animation: gradientShift 10s ease infinite;
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+      background: #000;
+      font-family: 'Poppins', sans-serif;
     }
-    @keyframes gradientShift {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+
+    #tooltip {
+      position: absolute;
+      padding: 5px 10px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 5px;
+      pointer-events: none;
+      font-family: monospace;
+      font-size: 14px;
+      color: #000;
+      display: none;
+      z-index: 5;
     }
-    .fade-in-up {
-      animation: fadeInUp 1s ease-out forwards;
-      opacity: 0;
-      transform: translateY(20px);
+
+    #centerText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      user-select: none;
+      pointer-events: none;
+      z-index: 10;
+      padding: 0 1rem;
+      max-width: 90vw;
     }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+
+    #centerText .main {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: clamp(1.5rem, 2.5vw, 3rem);
+      background: linear-gradient(90deg, #c0c0c0, #a0a8b0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+              background-clip: text;
+              color: transparent;
+    }
+
+    #centerText .sub {
+      margin-top: 0.5rem;
+      font-size: clamp(0.9rem, 1.3vw, 1.2rem);
+      font-weight: 400;
+      color: #b0b0b0;
+      opacity: 0.8;
     }
   </style>
 </head>
-<body class="flex items-center justify-center h-screen text-white font-sans">
-
-  <div class="text-center space-y-6 fade-in-up">
-    <h1 class="text-5xl md:text-6xl font-extrabold">Welcome !!</h1>
-    <p class="text-xl md:text-2xl">@advait.varma</p>
+<body>
+  <div id="centerText">
+    <div class="main">WELCOME !! </div>
+    <div class="sub">@advait.varma</div>
   </div>
+  <div id="tooltip"></div>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 2000);
+    camera.position.z = 1000;
 
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(innerWidth, innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const starCount = 2000;
+    const starGeometry = new THREE.BufferGeometry();
+    const starPositions = new Float32Array(starCount * 3);
+    const starSizes = new Float32Array(starCount);
+
+    for (let i = 0; i < starCount; i++) {
+      starPositions[i * 3] = (Math.random() - 0.5) * 2000;
+      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
+      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
+      starSizes[i] = Math.random() * 2 + 0.5;
+    }
+
+    starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    starGeometry.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
+
+    const starMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 2,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 0.8,
+      depthWrite: false,
+    });
+
+    const stars = new THREE.Points(starGeometry, starMaterial);
+    scene.add(stars);
+
+    const shootingStars = [];
+
+    function createShootingStar() {
+      const geometry = new THREE.BufferGeometry();
+      const vertices = new Float32Array([0, 0, 0, -100, -100, 0]);
+      geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+
+      const material = new THREE.LineBasicMaterial({
+        color: 0xffffaa,
+        transparent: true,
+        opacity: 0.9,
+      });
+
+      const shootingStar = new THREE.Line(geometry, material);
+      shootingStar.position.set(
+        (Math.random() - 0.5) * 1000,
+        (Math.random() - 0.5) * 1000,
+        (Math.random() - 0.5) * 500
+      );
+      shootingStar.velocity = new THREE.Vector3(
+        Math.random() * 4 + 4,
+        Math.random() * 4 + 4,
+        0
+      );
+      scene.add(shootingStar);
+      shootingStars.push(shootingStar);
+    }
+
+    let rotationSpeed = 0.0005;
+    let mouse = { x: 0, y: 0 };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    window.addEventListener('click', createShootingStar);
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const tooltip = document.getElementById('tooltip');
+    const raycaster = new THREE.Raycaster();
+    const mouseVector = new THREE.Vector2();
+
+    function updateTooltip(clientX, clientY) {
+      mouseVector.x = (clientX / window.innerWidth) * 2 - 1;
+      mouseVector.y = -(clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouseVector, camera);
+      const intersects = raycaster.intersectObject(stars);
+      if (intersects.length > 0) {
+        tooltip.style.display = 'block';
+        tooltip.style.left = clientX + 10 + 'px';
+        tooltip.style.top = clientY + 10 + 'px';
+        tooltip.textContent = 'Star Coordinates: ' +
+          intersects[0].point.x.toFixed(1) + ', ' +
+          intersects[0].point.y.toFixed(1) + ', ' +
+          intersects[0].point.z.toFixed(1);
+      } else {
+        tooltip.style.display = 'none';
+      }
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      updateTooltip(e.clientX, e.clientY);
+    });
+
+    function animate(time = 0) {
+      requestAnimationFrame(animate);
+
+      stars.rotation.y += rotationSpeed + mouse.x * 0.01;
+      stars.rotation.x += rotationSpeed + mouse.y * 0.01;
+
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const star = shootingStars[i];
+        star.position.add(star.velocity);
+        star.material.opacity -= 0.02;
+        if (star.material.opacity <= 0) {
+          scene.remove(star);
+          shootingStars.splice(i, 1);
+        }
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
 </body>
 </html>
